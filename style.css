@@ -2,6 +2,16 @@
     margin-top: 20px;
 }
 
+.row {
+    margin: 10px;
+}
+
 #header {
-text-align: center;
+    text-align: center;
+}
+
+#currency-input {
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
 }
