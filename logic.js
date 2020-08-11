@@ -1,7 +1,12 @@
+// Element
 const inputElement = document.querySelector('#input');
 const convertBtn = document.querySelector('#convert-btn');
+const apiTest = document.querySelector('#api-test');
 
+// Event
 convertBtn.addEventListener('click', e => {
+    e.preventDefault();
+
     console.log(inputElement.value);
 
     let usdToNpr = result(input.value);
@@ -28,4 +33,11 @@ function addDOM(usdToNpr) {
     document.querySelector('#result-div').appendChild(ui);
 
     console.log(ui);
+}
+
+// API Call
+function getCurrency() {
+    fetch('https://api.exchangeratesapi.io/latest')
+    .then(res => res.json())
+    .then(data => console.log(data));
 }
