@@ -15,6 +15,9 @@ convertBtn.addEventListener('click', e => {
     inputElement.value = '';
 });
 
+// API Test Button
+apiTest.addEventListener('click', getCurrency);
+
 // Convert currency
 let result = amount => {
     return (amount * 119.39);
@@ -39,5 +42,21 @@ function addDOM(usdToNpr) {
 function getCurrency() {
     fetch('https://api.exchangeratesapi.io/latest')
     .then(res => res.json())
-    .then(data => console.log(data));
+    .then(data => {
+        const rate = data.rates
+
+        let ui = document.createElement('ui');
+        ui.classList = 'list-group mt-4';
+        for(let key in rate) {
+            // console.log(key,":",rate[key]);
+            let li = document.createElement('li');
+            li.classList = 'list-group-item';
+            li.textContent = `${key}: ${rate[key]}`;
+            
+            ui.appendChild(li);
+        }
+        
+        // Append to result div
+        document.querySelector('#result-div').appendChild(ui);
+    });
 }
