@@ -2,6 +2,7 @@
 const inputElement = document.querySelector('#input');
 const convertBtn = document.querySelector('#convert-btn');
 const apiTest = document.querySelector('#api-test');
+const selectElement = document.querySelector('#from');
 
 // Event
 convertBtn.addEventListener('click', e => {
@@ -29,7 +30,7 @@ function addDOM(usdToNpr) {
     ui.classList = 'list-group';
     
     let li = document.createElement('li');
-    li.classList = 'list-group-item';
+    li.classList = 'list-group-item mt-4';
     li.textContent = `Rs.${usdToNpr}`;
 
     ui.appendChild(li);
@@ -40,6 +41,7 @@ function addDOM(usdToNpr) {
 
 // API Call
 function getCurrency() {
+    // https://exchangeratesapi.io/
     fetch('https://api.exchangeratesapi.io/latest')
     .then(res => res.json())
     .then(data => {
@@ -48,7 +50,6 @@ function getCurrency() {
         let ui = document.createElement('ui');
         ui.classList = 'list-group mt-4';
         for(let key in rate) {
-            // console.log(key,":",rate[key]);
             let li = document.createElement('li');
             li.classList = 'list-group-item';
             li.textContent = `${key}: ${rate[key]}`;
