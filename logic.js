@@ -7,17 +7,13 @@ const selectElement = document.querySelector('#from');
 // Event: form submit
 convertBtn.addEventListener('click', e => {
     e.preventDefault();
-    
-    console.log(selectElement.value);
-    console.log(inputElement.value);
-
     getCurrency2();
 });
 
 // Event: domContentLoad
 window.addEventListener('DOMContentLoaded', addCountry);
 
-// API Test Button
+// Event: API Test Button
 apiTest.addEventListener('click', getCurrency);
 
 // Add Country Selector to select element
@@ -32,25 +28,6 @@ function addCountry() {
             selectElement.appendChild(option);
         });
     });
-
-}
-
-// Convert currency
-let result = amount => {
-    return (amount * 119.39);
-}
-
-// Add DOM
-function addDOM(result) {
-    let ui = document.createElement('ui');
-    ui.classList = 'list-group';
-    
-    let li = document.createElement('li');
-    li.classList = 'list-group-item mt-4';
-    li.textContent = `Rs.${result}`;
-
-    ui.appendChild(li);
-    document.querySelector('#result-div').appendChild(ui);
 
 }
 
@@ -70,6 +47,27 @@ function getCurrency2() {
 
     });
 }
+
+// Add DOM
+function addDOM(result) {
+    if(document.querySelector('#result') === null){
+        let ui = document.createElement('ui');
+        ui.classList = 'list-group';
+        
+        let li = document.createElement('li');
+        li.classList = 'list-group-item mt-4';
+        li.id = 'result';
+        li.textContent = `${selectElement.value}: ${result}`;
+    
+        ui.appendChild(li);
+        document.querySelector('#result-div').appendChild(ui);
+
+    } else {
+        document.querySelector('#result').textContent = `${selectElement.value}: ${result}`;
+    }
+
+}
+
 
 // API Call
 function getCurrency() {
