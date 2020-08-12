@@ -7,13 +7,11 @@ const selectElement = document.querySelector('#from');
 // Event
 convertBtn.addEventListener('click', e => {
     e.preventDefault();
-
+    
+    console.log(selectElement.value);
     console.log(inputElement.value);
 
-    let usdToNpr = result(input.value);
-    addDOM(usdToNpr);
-
-    inputElement.value = '';
+    getCurrency2();
 });
 
 // API Test Button
@@ -25,19 +23,38 @@ let result = amount => {
 }
 
 // Add DOM
-function addDOM(usdToNpr) {
+function addDOM(result) {
     let ui = document.createElement('ui');
     ui.classList = 'list-group';
     
     let li = document.createElement('li');
     li.classList = 'list-group-item mt-4';
-    li.textContent = `Rs.${usdToNpr}`;
+    li.textContent = `Rs.${result}`;
 
     ui.appendChild(li);
     document.querySelector('#result-div').appendChild(ui);
 
-    console.log(ui);
 }
+
+// API Call
+function getCurrency2() {
+    // https://exchangeratesapi.io/
+    fetch('https://api.exchangeratesapi.io/latest')
+    .then(res => res.json())
+    .then(data => {
+        const rates = data.rates;
+        Object.keys(rates).forEach(key => {
+
+            if(key == selectElement.value){
+                const result = inputElement.value * rates[key];
+                addDOM(result);
+            }
+        });
+
+    });
+}
+
+// Add Country Selector to select element
 
 // API Call
 function getCurrency() {
@@ -45,7 +62,7 @@ function getCurrency() {
     fetch('https://api.exchangeratesapi.io/latest')
     .then(res => res.json())
     .then(data => {
-        const rate = data.rates
+        const rate = data.rates;
 
         let ui = document.createElement('ui');
         ui.classList = 'list-group mt-4';
