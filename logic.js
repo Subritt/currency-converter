@@ -4,7 +4,7 @@ const convertBtn = document.querySelector('#convert-btn');
 const apiTest = document.querySelector('#api-test');
 const selectElement = document.querySelector('#from');
 
-// Event
+// Event: form submit
 convertBtn.addEventListener('click', e => {
     e.preventDefault();
     
@@ -14,8 +14,26 @@ convertBtn.addEventListener('click', e => {
     getCurrency2();
 });
 
+// Event: domContentLoad
+window.addEventListener('DOMContentLoaded', addCountry);
+
 // API Test Button
 apiTest.addEventListener('click', getCurrency);
+
+// Add Country Selector to select element
+function addCountry() {
+    fetch('https://api.exchangeratesapi.io/latest')
+    .then(res => res.json())
+    .then(data => {
+        const rates = data.rates;
+        Object.keys(rates).forEach(country => {
+            const option = document.createElement('option');
+            option.textContent = country;
+            selectElement.appendChild(option);
+        });
+    });
+
+}
 
 // Convert currency
 let result = amount => {
@@ -44,7 +62,6 @@ function getCurrency2() {
     .then(data => {
         const rates = data.rates;
         Object.keys(rates).forEach(key => {
-
             if(key == selectElement.value){
                 const result = inputElement.value * rates[key];
                 addDOM(result);
@@ -53,8 +70,6 @@ function getCurrency2() {
 
     });
 }
-
-// Add Country Selector to select element
 
 // API Call
 function getCurrency() {
