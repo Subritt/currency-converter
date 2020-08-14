@@ -65,7 +65,8 @@ function addDOM(result) {
     } else {
         document.querySelector('#result').textContent = `${selectElement.value}: ${result}`;
     }
-
+    inputElement.value = '';
+    selectElement.value = '---To---';
 }
 
 
