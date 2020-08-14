@@ -5,7 +5,13 @@ const apiTest = document.querySelector('#api-test');
 const selectElement = document.querySelector('#from');
 
 // Event: form submit
-convertBtn.addEventListener('click', e => {
+// convertBtn.addEventListener('click', e => {
+//     e.preventDefault();
+//     getCurrency2();
+// });
+
+// Event: type
+inputElement.addEventListener('keyup', e => {
     e.preventDefault();
     getCurrency2();
 });
@@ -65,8 +71,9 @@ function addDOM(result) {
     } else {
         document.querySelector('#result').textContent = `${selectElement.value}: ${result}`;
     }
-    inputElement.value = '';
-    selectElement.value = '---To---';
+    // Clear input and selector
+    // inputElement.value = '';
+    // selectElement.value = '---To---';
 }
 
 
