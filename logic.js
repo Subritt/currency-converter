@@ -10,6 +10,12 @@ const selectElement = document.querySelector('#from');
 //     getCurrency2();
 // });
 
+// Event: form submit
+convertBtn.addEventListener('click', e => {
+    e.preventDefault();
+    getLocation();
+});
+
 // Event: type
 inputElement.addEventListener('keyup', e => {
     e.preventDefault();
@@ -98,4 +104,12 @@ function getCurrency() {
         // Append to result div
         document.querySelector('#result-div').appendChild(ui);
     });
+}
+
+// Geolocation
+function getLocation() {
+    navigator.geolocation.getCurrentPosition((position) => {
+        console.log(`Latitude: ${position.coords.latitude} and Longitude: ${position.coords.longitude}`);
+        // console.log(`test logger`);
+    })
 }
