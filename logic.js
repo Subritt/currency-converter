@@ -110,6 +110,29 @@ function getCurrency() {
 function getLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
         console.log(`Latitude: ${position.coords.latitude} and Longitude: ${position.coords.longitude}`);
-        // console.log(`test logger`);
+        let lat = position.coords.latitude;
+        let lng = position.coords.longitude;
+        codeLatLng(lat, lng);
+        document.querySelector('#result-div').innerHTML = `
+            <p class="mt-4">
+                Latitude: ${position.coords.latitude}
+                <br>
+                Longitude: ${position.coords.longitude}
+            </p>
+        `;
+    })
+}
+
+// Show location place
+function codeLatLng(lat, lng) {
+    const geocoder = new google.maps.Geocoder();
+
+    let latlng = new google.maps.LatLng(lat, lng);
+    geocoder.geocode({'latLng': latlng}, (results, status) => {
+        if (status == google.maps.GeocoderStatus.OK) {
+            console.log(results);
+        } else {
+            alert("Geocoder failed due to: " + status);
+        }
     })
 }
